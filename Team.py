@@ -1,11 +1,15 @@
 import re
 
 class Team():
-    def __init__(self,teamName,wikiName,):
+    def __init__(self,teamName,wikiName,partners,wikiLink,tabLink,row):
         self.name = teamName
         self.wiki = wikiName
         self.aff = []
         self.neg = []
+        self.row = row
+        self.partners = partners
+        self.wikiLink = wikiLink
+        self.tab = tabLink
 
     def addRR(self,rr,side):
 
@@ -46,8 +50,8 @@ class Team():
             else:
                 args = re.split(",|and|;",speech)
                 for arg in args:
-                    if(arg not in self.neg):
-                        self.neg.append(arg)
+                    if(arg.strip() not in self.neg):
+                        self.neg.append(arg.strip())
 
     def printInfo(self):
         if(len(self.aff) == 0 and len(self.neg) == 0):
@@ -55,4 +59,4 @@ class Team():
         elif(len(self.neg) == 0):
             print(self.name + " reads ", *self.aff, " on aff, and doesn't disclose negs")
         elif(len(self.aff) > 0 and len(self.neg) > 0):
-            print(self.name + " reads ", *self.aff, " on aff, and reads ", *self.neg, " on neg ")
+            print(self.name + " reads", *self.aff, "on aff, and reads", *self.neg, "on neg ")

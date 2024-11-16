@@ -6,16 +6,22 @@ from selenium.webdriver.common.keys import Keys
 import time
 import re
 from Team import Team
+import gspread
+gc = gspread.service_account()
+
+sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1cUCMW0j14FFdMlPwb0UwvOMTaxOQ4dv0ipCWCEvJObA/edit?gid=97192730#gid=97192730')
+worksheet = sh.worksheet("test")
+print(worksheet.get('A2:C6'))
 
 URL = "https://www.tabroom.com/index/tourn/fields.mhtml?tourn_id=31289&event_id=291334"
 page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, "html.parser")
 table = soup.find("table", id="fieldsort")
-print(table.prettify())
 teams = []
 schools = []
 codes = []
+links = []
 
 for a in table.find_all("tr"):
     i = 0
@@ -29,6 +35,14 @@ for a in table.find_all("tr"):
         if(i == 3):
             code = b.text.strip()
             codes.append(code)
+        if i == 5:
+            # Extract the <a> tag and get its href attribute
+            link_tag = b.find("a")
+            if link_tag and link_tag.has_attr("href"):
+                link = link_tag["href"]
+                links.append(link)
+            else:
+                links.append("")
         i = i + 1
 
 print(schools)
@@ -77,15 +91,14 @@ for n in range(len(teams)):
     school = schools[n].replace(" ","")
     print(school + " " + code)
 
-    tempTeam = Team(codes[n],school + " " + code)
-
-    # login_url = "https://opencaselist.com/login"  # Replace with actual login URL
     target_url = f"https://opencaselist.com/hspolicy24/{school}/{code}"
+
+    tempTeam = Team(codes[n],school + " " + code,teams[n],target_url,links[n],n+3)    
 
     # Navigate to the target page after login
     driver.get(target_url)
 
-    time.sleep(0.75)
+    time.sleep(3)
     # Get the page content
     soup = BeautifulSoup(driver.page_source, "html.parser")
 
@@ -107,8 +120,23 @@ for n in range(len(teams)):
         tempTeam.addRR(rr,side == "Aff")
     
     main.append(tempTeam)
+
 for team in main:
     team.printInfo()
+    row = str(team.row)
+
+    # Update column A with the team name (minus the last 3 characters)
+    print(team.name[:-3])
+    worksheet.update_acell(f"A{row}", team.name[:-3])
+
+    # Update column B with partners and two hyperlinks
+    formula = (
+        f'{team.partners}\n'
+        f'=HYPERLINK("{team.wikiLink}", "Wiki")\n'
+        f'=HYPERLINK("{team.tab}", "Record")'
+    )
+    worksheet.update_acell(f"B{row}", f'=HYPERLINK("{team.wikiLink}", "Wiki")\n')
+    
 
 # Close the browser
 driver.quit()
