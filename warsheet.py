@@ -6,6 +6,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 import re
 from Team import Team
+import random
 import gspread
 gc = gspread.service_account()
 
@@ -25,6 +26,7 @@ links = []
 
 for a in table.find_all("tr"):
     i = 0
+    school = ""
     for b in a.find_all("td"):
         if(i == 0):
             school = b.text.strip()
@@ -34,13 +36,16 @@ for a in table.find_all("tr"):
             teams.append(names)
         if(i == 3):
             code = b.text.strip()
-            codes.append(code)
+            if code == "TBA":
+                codes.append(school + " TBA")
+            else:
+                codes.append(code)
         if i == 5:
             # Extract the <a> tag and get its href attribute
             link_tag = b.find("a")
             if link_tag and link_tag.has_attr("href"):
                 link = link_tag["href"]
-                links.append(link)
+                links.append("www.tabroom.com"+link)
             else:
                 links.append("")
         i = i + 1
@@ -93,7 +98,7 @@ for n in range(len(teams)):
 
     target_url = f"https://opencaselist.com/hspolicy24/{school}/{code}"
 
-    tempTeam = Team(codes[n],school + " " + code,teams[n],target_url,links[n],n+3)    
+    tempTeam = Team(codes[n],school + " " + code,teams[n],target_url,links[n],n+3)
 
     # Navigate to the target page after login
     driver.get(target_url)
@@ -121,22 +126,57 @@ for n in range(len(teams)):
     
     main.append(tempTeam)
 
+all = []
 for team in main:
     team.printInfo()
-    row = str(team.row)
+    row = []
 
-    # Update column A with the team name (minus the last 3 characters)
-    print(team.name[:-3])
-    worksheet.update_acell(f"A{row}", team.name[:-3])
-
-    # Update column B with partners and two hyperlinks
-    formula = (
-        f'{team.partners}\n'
-        f'=HYPERLINK("{team.wikiLink}", "Wiki")\n'
-        f'=HYPERLINK("{team.tab}", "Record")'
-    )
-    worksheet.update_acell(f"B{row}", f'=HYPERLINK("{team.wikiLink}", "Wiki")\n')
+    # Update column A with the team name
+    worksheet.update_acell(f"A{str(team.row)}",f'=HYPERLINK("{team.tab}", "{team.name}")')
+    worksheet.update_acell(f"B{str(team.row)}",f'=HYPERLINK("{team.wikiLink}", "Wiki")')
+    if(len(team.aff)>0):
+        for n in range(4):
+            if(n<len(team.aff)):
+                row.append(team.aff[n])
+            else:
+                row.append("")
+        if(len(team.aff)>4):
+            row.append("\n".join(team.aff[4:]))
+        else:
+            row.append("")
+        row.append("")
+        row.append("")
+        members = ["Zahaan","Eric","Ava","Sasha"]
+        row.append(random.choice(members[1:]))
+    else:
+        for n in range(5):
+            row.append("")
+        row.append("No Disclo")
+        row.append("")
+        row.append("")
+    row.append("")
+    row.append("")
     
+
+    if(len(team.neg)>0):
+        for n in range(4):
+            if(n<len(team.neg)):
+                row.append(team.neg[n])
+            else:
+                row.append("")
+        if(len(team.neg)>4):
+            row.append("\n".join(team.neg[4:]))
+        else:
+            row.append("")
+        row.append("\n".join(team.negCol))
+    else:
+        for n in range(5):
+            row.append("")
+        row.append("No Disclo")
+    
+
+    all.append(row)
+worksheet.update(all,f"C3:R{main[-1].row}")
 
 # Close the browser
 driver.quit()

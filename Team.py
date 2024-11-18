@@ -6,12 +6,17 @@ class Team():
         self.wiki = wikiName
         self.aff = []
         self.neg = []
+        self.negCol = []
         self.row = row
         self.partners = partners
         self.wikiLink = wikiLink
         self.tab = tabLink
 
-    def addRR(self,rr,side):
+    def addRR(self,rr,side,*args):
+        if(len(args) > 0):
+            final = True
+        else:
+            final = False
 
         speech = ""
 
@@ -48,10 +53,17 @@ class Team():
                 if(speech not in self.aff):
                     self.aff.append(speech)
             else:
-                args = re.split(",|and|;",speech)
-                for arg in args:
+                nargs = re.split(",|and|;",speech)
+                for arg in nargs:
                     if(arg.strip() not in self.neg):
-                        self.neg.append(arg.strip())
+                        if(final):
+                            self.negCol.append(arg.strip())
+                        else:
+                            self.neg.append(arg.strip())
+        
+        if((not side) and ("\n" in rr)):
+            NR2 = rr.split("\n")[-1]
+            self.addRR(NR2,False,True)
 
     def printInfo(self):
         if(len(self.aff) == 0 and len(self.neg) == 0):
