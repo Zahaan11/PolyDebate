@@ -8,11 +8,10 @@ import re
 from Team import Team
 import random
 import gspread
-gc = gspread.service_account()
 
+gc = gspread.service_account()
 sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1cUCMW0j14FFdMlPwb0UwvOMTaxOQ4dv0ipCWCEvJObA/edit?gid=97192730#gid=97192730')
 worksheet = sh.worksheet("test")
-print(worksheet.get('A2:C6'))
 
 URL = "https://www.tabroom.com/index/tourn/fields.mhtml?tourn_id=31289&event_id=291334"
 page = requests.get(URL)
@@ -103,10 +102,10 @@ for n in range(len(teams)):
     # Navigate to the target page after login
     driver.get(target_url)
 
-    time.sleep(0.75)
-    # Get the page content
-    soup = BeautifulSoup(driver.page_source, "html.parser")
+    time.sleep(2)
 
+    soup = BeautifulSoup(driver.page_source, "html.parser")
+    # Get the page content
     row = soup.find("tbody",role="rowgroup")
     # print(row.prettify())
     negargs = []

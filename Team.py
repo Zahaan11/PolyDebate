@@ -7,6 +7,7 @@ class Team():
         self.wiki = wikiName
         self.affDates = {}
         self.aff = []
+        self.negTimes = {}
         self.neg = []
         self.negCol = []
         self.row = row
@@ -59,10 +60,13 @@ class Team():
             else:
                 nargs = re.split(",|and|;",speech)
                 for arg in nargs:
-                    if(arg.strip() not in self.neg and not final):
-                        self.neg.append(arg.strip())
-                    elif(final and arg.strip() not in self.negCol):
-                        self.negCol.append(arg.strip())
+                    arg2 = arg.strip()
+                    if(arg2 not in self.negTimes and not final):
+                        self.negTimes[arg2] = 1
+                    elif(arg2 in self.negTimes and not final):
+                        self.negTimes[arg2] += 1
+                    elif(final and arg2 not in self.negCol):
+                        self.negCol.append(arg2)
         
         if((not side) and ("\n" in rr)):
             NR2 = rr.split("\n")[-1]
@@ -76,6 +80,11 @@ class Team():
             if(len(self.aff) > 1):
                 self.aff.reverse()
             print(self.aff)
+
+        if(len(self.negTimes) > 0):
+            sorted_by_values = dict(sorted(self.negTimes.items(), key=lambda item: item[1]))
+            for arg in sorted_by_values.keys():
+                self.neg.append(arg + " x" + str(self.negTimes[arg]))
 
     def printInfo(self):
         if(len(self.aff) == 0 and len(self.neg) == 0):
