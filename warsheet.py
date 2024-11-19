@@ -103,7 +103,7 @@ for n in range(len(teams)):
     # Navigate to the target page after login
     driver.get(target_url)
 
-    time.sleep(3)
+    time.sleep(0.75)
     # Get the page content
     soup = BeautifulSoup(driver.page_source, "html.parser")
 
@@ -115,19 +115,30 @@ for n in range(len(teams)):
         n = 0
         side = ""
         rr = ""
+        date_created = ""
         for box in round.find_all("td"):
+            if(n==1):
+                print(box)
+                date_created = box.find("span")["title"][8:]
+                print(date_created)
             if(n==2):
                 side = box.find("span").text.strip()
             if(n==5):
                 rrdiv = box.find("div", class_=re.compile("report"))
                 rr = rrdiv.find("div").text.strip()
+            if(n==6):
+                print(box)
             n = n + 1
-        tempTeam.addRR(rr,side == "Aff")
+        tempTeam.addRR(rr,side == "Aff",date_created,False)
     
     main.append(tempTeam)
 
+# Close the browser
+driver.quit()
+
 all = []
 for team in main:
+    team.sort()
     team.printInfo()
     row = []
 
@@ -177,6 +188,3 @@ for team in main:
 
     all.append(row)
 worksheet.update(all,f"C3:R{main[-1].row}")
-
-# Close the browser
-driver.quit()

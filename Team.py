@@ -1,9 +1,11 @@
 import re
+from datetime import datetime
 
 class Team():
     def __init__(self,teamName,wikiName,partners,wikiLink,tabLink,row):
         self.name = teamName
         self.wiki = wikiName
+        self.affDates = {}
         self.aff = []
         self.neg = []
         self.negCol = []
@@ -12,11 +14,13 @@ class Team():
         self.wikiLink = wikiLink
         self.tab = tabLink
 
-    def addRR(self,rr,side,*args):
-        if(len(args) > 0):
-            final = True
-        else:
-            final = False
+    def addRR(self,rr,side,date,final):
+        if(date.strip() != ""):
+            # print(date)
+            # dateList = "/".split(date.strip())
+            # print(dateList)
+            # dateObj = datetime(int(dateList[2]), int(dateList[0]), int(dateList[1]))
+            dateObj = datetime.strptime(date.strip(), "%m/%d/%Y")
 
         speech = ""
 
@@ -50,20 +54,28 @@ class Team():
 
         if(speech != "" and speech != None):
             if(side):
-                if(speech not in self.aff):
-                    self.aff.append(speech)
+                if(speech not in self.affDates or (speech in self.affDates and dateObj > self.affDates[speech])):
+                    self.affDates[speech] = dateObj
             else:
                 nargs = re.split(",|and|;",speech)
                 for arg in nargs:
-                    if(arg.strip() not in self.neg):
-                        if(final):
-                            self.negCol.append(arg.strip())
-                        else:
-                            self.neg.append(arg.strip())
+                    if(arg.strip() not in self.neg and not final):
+                        self.neg.append(arg.strip())
+                    elif(final and arg.strip() not in self.negCol):
+                        self.negCol.append(arg.strip())
         
         if((not side) and ("\n" in rr)):
             NR2 = rr.split("\n")[-1]
-            self.addRR(NR2,False,True)
+            self.addRR(NR2,False,date,True)
+
+    def sort(self):
+        if(len(self.affDates)>0):
+            print(self.affDates)
+            sorted_by_values = dict(sorted(self.affDates.items(), key=lambda item: item[1]))
+            self.aff = list(sorted_by_values.keys())
+            if(len(self.aff) > 1):
+                self.aff.reverse()
+            print(self.aff)
 
     def printInfo(self):
         if(len(self.aff) == 0 and len(self.neg) == 0):
@@ -72,3 +84,5 @@ class Team():
             print(self.name + " reads ", *self.aff, " on aff, and doesn't disclose negs")
         elif(len(self.aff) > 0 and len(self.neg) > 0):
             print(self.name + " reads", *self.aff, "on aff, and reads", *self.neg, "on neg ")
+
+            
