@@ -16,6 +16,8 @@ class Team():
         self.tab = tabLink
 
     def addRR(self,rr,side,date,final):
+        if("@" in rr):
+            return
         if(date.strip() != ""):
             # print(date)
             # dateList = "/".split(date.strip())
@@ -74,17 +76,17 @@ class Team():
 
     def sort(self):
         if(len(self.affDates)>0):
-            print(self.affDates)
             sorted_by_values = dict(sorted(self.affDates.items(), key=lambda item: item[1]))
             self.aff = list(sorted_by_values.keys())
             if(len(self.aff) > 1):
                 self.aff.reverse()
-            print(self.aff)
 
         if(len(self.negTimes) > 0):
             sorted_by_values = dict(sorted(self.negTimes.items(), key=lambda item: item[1]))
             for arg in sorted_by_values.keys():
                 self.neg.append(arg + " x" + str(self.negTimes[arg]))
+            if(len(self.neg) > 1):
+                self.neg.reverse()
 
     def printInfo(self):
         if(len(self.aff) == 0 and len(self.neg) == 0):
