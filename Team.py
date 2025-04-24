@@ -1,8 +1,14 @@
 import re
+import requests
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
 from datetime import datetime
 
 class Team():
-    def __init__(self,teamName,wikiName,partners,wikiLink,tabLink,row):
+    def __init__(self,teamName,wikiName,partners,wikiLink,tabLink):
         self.name = teamName
         self.wiki = wikiName
         self.affDates = {}
@@ -10,10 +16,61 @@ class Team():
         self.negTimes = {}
         self.neg = []
         self.negCol = []
-        self.row = row
         self.partners = partners
         self.wikiLink = wikiLink
         self.tab = tabLink
+        self.lastUpdated = None
+
+    def parseWiki(self,driver):
+
+        driver.get(self.wikiLink)
+
+        soup = BeautifulSoup(driver.page_source, "html.parser")
+        while(soup.find("tbody",role="rowgroup") is None and soup.find("div",class_="_error_fbh1a_1") is None):
+            time.sleep(0.1)
+            soup = BeautifulSoup(driver.page_source, "html.parser")
+        
+        time.sleep(0.4)
+
+        if(soup.find("div",class_="_error_fbh1a_1") is not None):
+            self.wikiLink = self.wikiLink[:-4] + self.wikiLink[-2:] + self.wikiLink[-4:-2]
+            print(self.wikiLink)
+            driver.get(self.wikiLink)
+
+            soup = BeautifulSoup(driver.page_source, "html.parser")
+            while(soup.find("tbody",role="rowgroup") is None and soup.find("div",class_="_error_fbh1a_1") is None):
+                time.sleep(0.1)
+                soup = BeautifulSoup(driver.page_source, "html.parser")
+            time.sleep(0.4)
+
+        if(soup.find("div",class_="_error_fbh1a_1") is None):
+            soup = BeautifulSoup(driver.page_source, "html.parser")
+
+            # Get the page content
+            row = soup.find("tbody",role="rowgroup")
+            # print(row.prettify())
+            negargs = []
+            affargs = []
+            for round in row.find_all("tr"):
+                n = 0
+                side = ""
+                rr = ""
+                date_created = ""
+                for box in round.find_all("td"):
+                    if(n==1):
+                        date_created = box.find("span")["title"][8:]
+                    if(n==2):
+                        side = box.find("span").text.strip()
+                    if(n==5):
+                        rrdiv = box.find("div", class_=re.compile("report"))
+                        rr = rrdiv.find("div").text.strip()
+                    if(n==6):
+                        #THIS IS WHERE FILE DOWNLOADS ARE
+                        pass
+                    n = n + 1
+                self.addRR(rr,side == "Aff",date_created,False)
+
+        self.lastUpdated = time.time_ms()
 
     def addRR(self,rr,side,date,final):
         if("@" in rr):
@@ -96,4 +153,7 @@ class Team():
         elif(len(self.aff) > 0 and len(self.neg) > 0):
             print(self.name + " reads", *self.aff, "on aff, and reads", *self.neg, "on neg ")
 
-            
+    def save(self):
+        self.sort()
+        f = open(f"/Teams/{self.wikiName}.txt", "w")
+        f.write("")

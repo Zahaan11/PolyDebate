@@ -98,6 +98,6 @@ NDCA =  Tournament("https://www.tabroom.com/index/tourn/fields.mhtml?tourn_id=34
                    "https://docs.google.com/spreadsheets/d/1cUCMW0j14FFdMlPwb0UwvOMTaxOQ4dv0ipCWCEvJObA/edit?gid=97192730#gid=97192730",
                    "NDCA CX",)
 NDCA.findTeams()
-NDCA.findArgs()
-NDCA.pushArgs()
+NDCA.findArgs(1)
+NDCA.pushArgs(1)
 NDCA.pushTeams()

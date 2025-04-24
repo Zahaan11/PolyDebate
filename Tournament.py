@@ -140,17 +140,17 @@ class Tournament():
             school = schools[n].replace(" ","")
             print(str(n) + ": " + school + " " + code)
             target_url = f"{self.wiki}/{school}/{code}"
-            newTeam = Team(codes[n],school + " " + code,names[n],target_url,links[n],n+3)
+            newTeam = Team(codes[n],school + " " + code,names[n],target_url,links[n])
             self.teams.append(newTeam)
     
     def pushTeams(self):
-        n = 0
+        n = 3
         for team in self.teams:
-            if(n==29):
+            if(n==32):
                 n = 0
                 time.sleep(60)
-            self.worksheet.update_acell(f"A{str(team.row)}",f'=HYPERLINK("{team.tab}", "{team.name}")')
-            self.worksheet.update_acell(f"B{str(team.row)}",f'=HYPERLINK("{team.wikiLink}", "Wiki")')
+            self.worksheet.update_acell(f"A{str(n)}",f'=HYPERLINK("{team.tab}", "{team.name}")')
+            self.worksheet.update_acell(f"B{str(n)}",f'=HYPERLINK("{team.wikiLink}", "Wiki")')
             n = n+1
     
     def findArgs(self,*args):
@@ -183,53 +183,7 @@ class Tournament():
         # Allow time for the page to load
         time.sleep(2)  # Adjust sleep duration as needed
         for team in self.teams[start:stop]:
-            driver.get(team.wikiLink)
-
-            soup = BeautifulSoup(driver.page_source, "html.parser")
-            while(soup.find("tbody",role="rowgroup") is None and soup.find("div",class_="_error_fbh1a_1") is None):
-                time.sleep(0.1)
-                soup = BeautifulSoup(driver.page_source, "html.parser")
-            
-            time.sleep(0.4)
-
-            if(soup.find("div",class_="_error_fbh1a_1") is not None):
-                team.wikiLink = team.wikiLink[:-4] + team.wikiLink[-2:] + team.wikiLink[-4:-2]
-                print(team.wikiLink)
-                driver.get(team.wikiLink)
-
-                soup = BeautifulSoup(driver.page_source, "html.parser")
-                while(soup.find("tbody",role="rowgroup") is None and soup.find("div",class_="_error_fbh1a_1") is None):
-                    time.sleep(0.1)
-                    soup = BeautifulSoup(driver.page_source, "html.parser")
-                time.sleep(0.4)
-
-            if(soup.find("div",class_="_error_fbh1a_1") is None):
-                soup = BeautifulSoup(driver.page_source, "html.parser")
-
-                # Get the page content
-                row = soup.find("tbody",role="rowgroup")
-                # print(row.prettify())
-                negargs = []
-                affargs = []
-                for round in row.find_all("tr"):
-                    n = 0
-                    side = ""
-                    rr = ""
-                    date_created = ""
-                    for box in round.find_all("td"):
-                        if(n==1):
-                            date_created = box.find("span")["title"][8:]
-                        if(n==2):
-                            side = box.find("span").text.strip()
-                        if(n==5):
-                            rrdiv = box.find("div", class_=re.compile("report"))
-                            rr = rrdiv.find("div").text.strip()
-                        if(n==6):
-                            #THIS IS WHERE FILE DOWNLOADS ARE
-                            pass
-                        n = n + 1
-                    team.addRR(rr,side == "Aff",date_created,False)
-
+            team.parseWiki(driver)
         # Close the browser
         driver.quit()
 
