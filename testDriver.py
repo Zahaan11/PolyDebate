@@ -93,11 +93,20 @@ import time
 # # DS2.pushTeams()
 # DS2.printArgs(43,"END")
 
-NDCA =  Tournament("https://www.tabroom.com/index/tourn/fields.mhtml?tourn_id=34485&event_id=324531",
+# NDCA =  Tournament("https://www.tabroom.com/index/tourn/fields.mhtml?tourn_id=34485&event_id=324531",
+#                    "CX",
+#                    "https://docs.google.com/spreadsheets/d/1cUCMW0j14FFdMlPwb0UwvOMTaxOQ4dv0ipCWCEvJObA/edit?gid=97192730#gid=97192730",
+#                    "NDCA CX",)
+# NDCA.findTeams()
+# NDCA.findArgs(1)
+# NDCA.pushArgs(1)
+# NDCA.pushTeams()
+
+NCFL =  Tournament("https://www.tabroom.com/index/tourn/codes.mhtml?tourn_id=35305",
                    "CX",
                    "https://docs.google.com/spreadsheets/d/1cUCMW0j14FFdMlPwb0UwvOMTaxOQ4dv0ipCWCEvJObA/edit?gid=97192730#gid=97192730",
-                   "NDCA CX",)
-NDCA.findTeams()
-NDCA.findArgs(1)
-NDCA.pushArgs(1)
-NDCA.pushTeams()
+                   "NCFL",)
+NCFL.loadTeamsCSV("NCFLNames.csv")
+#NCFL.findArgs(48,"END")
+#NCFL.pushArgs(48,"END")
+NCFL.pushTeams()

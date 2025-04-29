@@ -1,0 +1,4 @@
+CRNorth TZ|CRNorth TaZh|Tao & Zhang|https://opencaselist.com/hspolicy24/CRNorth/TaZh| |('04 27 2025', '%m %d %Y')
+{'Software Copyright': datetime.datetime(2025, 3, 3, 0, 0)}
+{'T-Existing': 1, 'Sui Generis CP': 1, 'India DA': 1, 'Set Col K': 1, 'Case': 1}
+Condo

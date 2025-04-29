@@ -5,9 +5,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
 import re
-from Team import Team
+from Team import *
 import random
 import gspread
+import csv
+from datetime import date
 
 class Tournament():
     def __init__(self,URL,event,googleSheetLink,sheetTabName):
@@ -22,7 +24,7 @@ class Tournament():
         gc = gspread.service_account()
         sh = gc.open_by_url(googleSheetLink)
         self.worksheet = sh.worksheet(sheetTabName)
-        
+    
     def findTeams(self):
         page = requests.get(self.url)
         soup = BeautifulSoup(page.content, "html.parser")
@@ -143,14 +145,44 @@ class Tournament():
             newTeam = Team(codes[n],school + " " + code,names[n],target_url,links[n])
             self.teams.append(newTeam)
     
+    def loadTeamsCSV(self,dir):
+        data_list = []
+        try:
+            with open(dir, 'r') as file:
+                csv_reader = csv.reader(file)
+                for row in csv_reader:
+                    try:
+                        data_list.append(row[0])
+                    except IndexError:
+                        print("IndexError: Column index out of range")
+                        return []
+        except FileNotFoundError:
+            print(f"FileNotFoundError: The file '{dir}' was not found.")
+            return []
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return []
+        
+        for name in data_list:
+            print(name)
+            args = name.split(" ")
+            team = args[1]+" "+args[2]
+            code = team[:2]+args[2][:2]
+            school = args[0]
+            target_url = f"{self.wiki}/{school}/{code}"
+            newTeam = Team(school+" "+args[1][0]+args[2][0],school + " " + code,args[1]+" & "+args[2],target_url," ")
+            self.teams.append(newTeam)
+    
     def pushTeams(self):
         n = 3
+        i = 0
         for team in self.teams:
             if(n==32):
                 n = 0
+                i+=1
                 time.sleep(60)
-            self.worksheet.update_acell(f"A{str(n)}",f'=HYPERLINK("{team.tab}", "{team.name}")')
-            self.worksheet.update_acell(f"B{str(n)}",f'=HYPERLINK("{team.wikiLink}", "Wiki")')
+            self.worksheet.update_acell(f"A{str((i*32) + n)}",f'=HYPERLINK("{team.tab}", "{team.name}")')
+            self.worksheet.update_acell(f"B{str((i*32) + n)}",f'=HYPERLINK("{team.wikiLink}", "Wiki")')
             n = n+1
     
     def findArgs(self,*args):
@@ -183,7 +215,13 @@ class Tournament():
         # Allow time for the page to load
         time.sleep(2)  # Adjust sleep duration as needed
         for team in self.teams[start:stop]:
-            team.parseWiki(driver)
+            fromFile = loadTeam(team.wiki)
+            if(fromFile == None):
+                team.parseWiki(driver)
+            #elif(abs(datetime.strptime((date.today().strftime("%m %d %Y"), "%m %d %Y") - team.lastUpdated).days) > 14):
+                #team.parseWiki(driver)
+            else:
+                team.importArgs(fromFile)
         # Close the browser
         driver.quit()
 
@@ -276,3 +314,7 @@ class Tournament():
         for team in self.teams[start:stop]:
             team.sort()
             team.printInfo()
+    
+    def save(self):
+        for team in self.teams:
+            team.save()

@@ -1,0 +1,4 @@
+PittsburghCentralCatholic HS|PittsburghCentralCatholic HuSc|Hunt & Scott|https://opencaselist.com/hspolicy24/PittsburghCentralCatholic/HuSc| |('04 27 2025', '%m %d %Y')
+{'Zugzwang': datetime.datetime(2025, 2, 18, 0, 0)}
+{'Cap-K': 12, 'Ban AI': 1, 'Ban AI CP': 1, 'Racial Audit CP': 1}
+Cap-K|Ban AI|Ban AI CP|Condo + Case|Racial Audit CP

@@ -1,0 +1,4 @@
+PolyPrepCountryDaySchool HP|PolyPrepCountryDaySchool HoPa|Howell & Parks|https://opencaselist.com/hspolicy24/PolyPrepCountryDaySchool/HoPa| |('04 27 2025', '%m %d %Y')
+{'Weed': datetime.datetime(2025, 3, 7, 0, 0)}
+{'Out': 1, 'AI Industry': 1, 'Clog': 1, 'Science Research': 1}
+Out|AI Industry|Clog|Science Research

@@ -1,0 +1,4 @@
+FoxChapelArea RL|FoxChapelArea RuLi|Rubin & Li|https://opencaselist.com/hspolicy24/FoxChapelArea/RuLi| |('04 27 2025', '%m %d %Y')
+{'Hello Kitty': datetime.datetime(2024, 7, 23, 0, 0), 'Restitution': datetime.datetime(2024, 12, 3, 0, 0), 'Singularity': datetime.datetime(2024, 12, 9, 0, 0)}
+{'P-L': 1, 'Acknowledgment': 1, 'T-Subsets': 1, 'T-strengthen': 2, 'Setcol K': 1, 'Uncooperative Federalism CP': 2, 'Adv CP': 1, 'Court Clog DA': 1, 'T-subsets': 1, 'P-this plan text is a mess': 1, 'Kant DA': 3, 'Thomas Jefferson CP': 2, 'Zoetology K': 1, 'T-Right of Publicity': 1, 'T-only enforcement': 1, 'the baudrillard-levinas-zhuangzi kritik': 1, 'T-Only Enforcement': 2, 'Aspec': 2, 'Nonbeing K': 2, 'Inshallah Time! CP': 2, 'Animal Wipeout': 2}
+L|Acknowledgment Procedural|P-singular m|ate|T-strengthen|T (moved it all onto one sheet)|Aspec|T|Kant DA|Wipeout|T-Strengthen|T-Congress

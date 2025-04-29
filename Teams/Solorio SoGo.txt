@@ -1,0 +1,4 @@
+Solorio SG|Solorio SoGo|Solis & Gonzalez|https://opencaselist.com/hspolicy24/Solorio/SoGo| |('04 27 2025', '%m %d %Y')
+{'Solis wiki)': datetime.datetime(2025, 2, 21, 0, 0), 'DIB': datetime.datetime(2025, 2, 22, 0, 0)}
+{'Subs': 2, 'Prizes CP': 1, 'Inflation DA': 1, 'Court Clog DA': 1, 'WTO CP': 1, 'Econ DA': 1}
+Prizes CP|Inflation DA|Subs

@@ -1,0 +1,4 @@
+Pennsbury KS|Pennsbury KaSm|Kanubaddi & Smith|https://opencaselist.com/hspolicy24/Pennsbury/KaSm| |('04 27 2025', '%m %d %Y')
+{'weed': datetime.datetime(2024, 11, 23, 0, 0), 'plants': datetime.datetime(2025, 3, 1, 0, 0), 'plants soft left': datetime.datetime(2025, 2, 2, 0, 0), 'weed (+cartel violence)': datetime.datetime(2024, 12, 13, 0, 0)}
+{'gendered language theory': 1, 'court clog da': 1, 'TSpec': 1, 'OCrime CP': 2, 'courts': 1, 'framework': 1, 't': 1, 'courts da': 2, 'ocrime cp': 1, 'court clog': 1, 'crime cp': 1, 'treaties cp': 1, 'Fem': 1, 'Court Clog DA': 1, 'ballot + coin flip theory': 1}
+gendered language theory|court clog da|TSpec|OCrime CP|courts|framework|t|courts da|ocrime cp|court clog|crime cp|treaties cp|Fem|Court Clog DA|ballot + coin flip theory

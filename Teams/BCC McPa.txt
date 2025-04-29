@@ -1,0 +1,4 @@
+BCC MP|BCC McPa|McKnight & Parran|https://opencaselist.com/hspolicy24/BCC/McPa| |('04 27 2025', '%m %d %Y')
+{'The Source': datetime.datetime(2024, 12, 3, 0, 0), 'The source v2': datetime.datetime(2025, 1, 25, 0, 0), 'Dead IP': datetime.datetime(2025, 2, 16, 0, 0)}
+{'Conquest K': 2, 'Remix K': 1, 'Mad Blackness': 1, 'Black Opacity K': 1}
+Remix K|Mad Blackness|Conquest K|Opacity

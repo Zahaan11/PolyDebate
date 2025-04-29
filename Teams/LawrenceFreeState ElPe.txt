@@ -1,0 +1,4 @@
+LawrenceFreeState EP|LawrenceFreeState ElPe|Elo & Peltier|https://opencaselist.com/hspolicy24/LawrenceFreeState/ElPe| |('04 27 2025', '%m %d %Y')
+{'team note for emails and other things': datetime.datetime(2024, 7, 6, 0, 0), '[NEW]- Gen AI': datetime.datetime(2024, 9, 20, 0, 0), 'Gen AI': datetime.datetime(2024, 9, 28, 0, 0), 'gen AI': datetime.datetime(2024, 9, 28, 0, 0), 'Trade Secrets': datetime.datetime(2024, 12, 7, 0, 0), '[NEW] - Gaming': datetime.datetime(2025, 1, 11, 0, 0)}
+{'Cap': 3, 'Court Clog': 1, 'case': 2, 'T-protection': 2, 'disclosure': 1, 'Hotlines CP': 1, 'dedev': 1, 'T-FW': 1, 'Cap K': 3, 'Case': 1, 'T-Protection': 1, 'Elections DA': 1, 'Equity CP': 1, 'Court clog DA': 1, 'T-Enforcement': 1, 'patent trolls bad CT': 1}
+Cap|case|dedev|T-Protection|Equity CP|Court Clog DA|patent trolls bad CT

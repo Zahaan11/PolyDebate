@@ -5,7 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 import time
-from datetime import datetime
+from datetime import datetime, date
+import json
 
 class Team():
     def __init__(self,teamName,wikiName,partners,wikiLink,tabLink):
@@ -70,7 +71,8 @@ class Team():
                     n = n + 1
                 self.addRR(rr,side == "Aff",date_created,False)
 
-        self.lastUpdated = time.time_ms()
+        self.lastUpdated = date.today().strftime("%m %d %Y"), "%m %d %Y"
+        self.save()
 
     def addRR(self,rr,side,date,final):
         if("@" in rr):
@@ -80,7 +82,7 @@ class Team():
             # dateList = "/".split(date.strip())
             # print(dateList)
             # dateObj = datetime(int(dateList[2]), int(dateList[0]), int(dateList[1]))
-            dateObj = datetime.strptime(date.strip(), "%m/%d/%Y")
+            dateObj = datetime.strptime(date.replace("/"," ").strip(), "%m %d %Y")
 
         speech = ""
 
@@ -154,6 +156,44 @@ class Team():
             print(self.name + " reads", *self.aff, "on aff, and reads", *self.neg, "on neg ")
 
     def save(self):
-        self.sort()
-        f = open(f"/Teams/{self.wikiName}.txt", "w")
-        f.write("")
+        with open(f"Teams/{self.wiki}.txt", "w", encoding="utf-8") as f:
+            f.write(f"{self.name}|{self.wiki}|{self.partners}|{self.wikiLink}|{self.tab}|{self.lastUpdated}\n")
+            f.write(str(self.affDates)+"\n")
+            f.write(str(self.negTimes)+"\n")
+            f.write("|".join(self.negCol)+"\n")
+
+    def importArgs(self,a):
+        self.aff = a.aff
+        self.neg = a.neg
+        self.affDates = a.affDates
+        self.negTimes = a.negTimes
+        self.negCol = a.negCol
+
+def loadTeam(name):
+    try:
+        f = open(f"Teams/{name}.txt", "r", encoding="utf-8")
+        row = 0
+        fields=[]
+        aff = {}
+        neg = {}
+        negCol = []
+        for line in f:
+            if(row==0):
+                fields = line.split("|")
+            if(row==1):
+                aff = eval(line)
+            if(row==2):
+                neg = eval(line)
+            if(row==3):
+                negCol = line.split("|")
+            row+=1
+        team = Team(fields[0],fields[1],fields[2],fields[3],fields[4])
+        team.lastUpdated = fields[5]
+        team.affDates = aff
+        team.negTimes = neg
+        team.negCol = negCol
+        team.sort()
+        return team
+
+    except:
+        return None

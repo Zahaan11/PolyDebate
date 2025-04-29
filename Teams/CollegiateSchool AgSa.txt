@@ -1,0 +1,4 @@
+CollegiateSchool AS|CollegiateSchool AgSa|Aggarwal & Saber|https://opencaselist.com/hspolicy24/CollegiateSchool/AgSa| |('04 27 2025', '%m %d %Y')
+{'Pera': datetime.datetime(2025, 1, 25, 0, 0), 'PERA': datetime.datetime(2025, 1, 25, 0, 0), 'Inno, comp': datetime.datetime(2024, 10, 19, 0, 0), 'inno, comp': datetime.datetime(2024, 10, 19, 0, 0), '1AC PERA': datetime.datetime(2024, 9, 21, 0, 0), 'Competitiveness, innovation': datetime.datetime(2024, 10, 18, 0, 0)}
+{'T': 3, 'Cap K': 5, 'Disclo theory': 1, '1NC T': 1, 'Sharks DA': 1, 'Cap': 1, 'court clog': 1, 'Cour clog DA': 1, 'T domestic': 1, 'cap k': 1, '1 NC disclosure': 1, '1NC Cap k': 1}
+T|Cap K|Disclo|Cap|court clog|cap|2NR Cap K|2NR|Cap k|2NR disclosure

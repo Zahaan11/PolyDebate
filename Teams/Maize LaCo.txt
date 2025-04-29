@@ -1,0 +1,4 @@
+Maize LC|Maize LaCo|LaPoint & Cox|https://opencaselist.com/hspolicy24/Maize/LaCo| |('04 27 2025', '%m %d %Y')
+{'Green Patents': datetime.datetime(2024, 10, 19, 0, 0), 'green patents': datetime.datetime(2024, 9, 21, 0, 0)}
+{'Cap K': 1, 'Multilat': 1, 'Multilat cp': 1, 'court clog': 2, 'elections': 1, 'multilat': 1, 'delay cp': 1}
+Cap K|Multilat|condo

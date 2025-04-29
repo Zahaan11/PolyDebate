@@ -1,0 +1,4 @@
+CollegiateSchool FK|CollegiateSchool FrKo|Frank & Kosner|https://opencaselist.com/hspolicy24/CollegiateSchool/FrKo| |('04 27 2025', '%m %d %Y')
+{'PERA': datetime.datetime(2024, 10, 31, 0, 0), 'Competitiveness, Innovation': datetime.datetime(2024, 10, 18, 0, 0), 'Competition, Innovation': datetime.datetime(2024, 10, 19, 0, 0), 'Competitiveness Adv., Innovation Adv': datetime.datetime(2024, 9, 21, 0, 0)}
+{'Presumption': 2, 'AT Procedural': 1, 'China Turn': 1, 'Cap K': 2, 'Elections': 1, 'Delay': 1, 'Sui Generis': 1, 'AT Condo': 1, 'T "strenghten': 1, '" case': 1, 'presumption': 1}
+Presumption|AT Procedural|China Turn|Cap K|Elections|Delay|Sui Generis|AT Condo|T "strenghten|" case|presumption

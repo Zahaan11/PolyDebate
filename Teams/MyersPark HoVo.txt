@@ -1,0 +1,4 @@
+MyersPark HV|MyersPark HoVo|Holland & Voltolina|https://opencaselist.com/hspolicy24/MyersPark/HoVo| |('04 27 2025', '%m %d %Y')
+{'[L]': datetime.datetime(2025, 2, 16, 0, 0), 'FORFEIT (internet went out)': datetime.datetime(2025, 2, 16, 0, 0)}
+{'black beach colonialism Kritik': 1}
+have to vote on colonialism

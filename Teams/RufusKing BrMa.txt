@@ -1,0 +1,4 @@
+RufusKing BM|RufusKing BrMa|Brown & Martin|https://opencaselist.com/hspolicy24/RufusKing/BrMa| |('04 27 2025', '%m %d %Y')
+{'Marijuana': datetime.datetime(2024, 12, 17, 0, 0)}
+{'China Relations DA': 1}
+China Relations DA

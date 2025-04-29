@@ -1,0 +1,4 @@
+Maize RB|Maize RuBr|Ruppert & Brown|https://opencaselist.com/hspolicy24/Maize/RuBr| |('04 27 2025', '%m %d %Y')
+{'Green Patents': datetime.datetime(2024, 11, 16, 0, 0)}
+{'Chevron': 5, 'China war DA': 1, 'Econ Da': 1, 'Elections': 2, 'Farm Bill': 3, 'T': 2, 'Econ': 1, 'Farmbill': 1, 'Multilat CP': 1, 'Court Clog DA': 1}
+Chevron|China war DA|Econ Da|Elections|Farm Bill|T|Econ|Farmbill|Multilat CP|Court Clog DA
